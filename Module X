@@ -292,6 +292,7 @@ end
 -- Tab creation
 function ModuleX:CreateTab(name)
     if self.Pages[name] then return self.Pages[name] end
+
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(1,-10,0,35)
     btn.Text = name
@@ -301,29 +302,44 @@ function ModuleX:CreateTab(name)
     btn.BackgroundColor3 = Color3.fromRGB(60,60,60)
     btn.AutoButtonColor = false
     btn.Parent = self.Sidebar
- 
+
     local corner = Instance.new("UICorner")
     corner.CornerRadius = UDim.new(0, UI_CORNER_RADIUS)
     corner.Parent = btn
- 
+
     btn.MouseEnter:Connect(function() btn.BackgroundColor3 = Color3.fromRGB(75,75,75) end)
     btn.MouseLeave:Connect(function() btn.BackgroundColor3 = Color3.fromRGB(60,60,60) end)
- 
+
     local page = Instance.new("ScrollingFrame")
     page.Size = UDim2.new(1,0,1,0)
     page.Visible = false
     page.BackgroundTransparency = 1
     page.ScrollBarThickness = 6
     page.CanvasSize = UDim2.new(0,0,0,0)
+    page.AutomaticCanvasSize = Enum.AutomaticSize.Y
     page.Name = name
     page.Parent = self.ContentFrame
+
+    -- **Add layout for buttons/toggles/sliders**
+    local pageLayout = Instance.new("UIListLayout")
+    pageLayout.Padding = UDim.new(0,5)
+    pageLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    pageLayout.Parent = page
+
+    local pagePadding = Instance.new("UIPadding")
+    pagePadding.PaddingTop = UDim.new(0,10)
+    pagePadding.PaddingBottom = UDim.new(0,10)
+    pagePadding.PaddingLeft = UDim.new(0,10)
+    pagePadding.PaddingRight = UDim.new(0,10)
+    pagePadding.Parent = page
+
     self.Pages[name] = page
- 
+
     btn.MouseButton1Click:Connect(function()
         for _, p in pairs(self.Pages) do p.Visible = false end
         page.Visible = true
     end)
- 
+
     return page
 end
  
