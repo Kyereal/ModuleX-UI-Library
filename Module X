@@ -519,21 +519,4 @@ function ModuleX:SetSliderColor(color)
     end
 end
 
-_G.ModuleXHideToggle = function()
-    local moduleXGui = game.CoreGui:FindFirstChild("ModuleX")
-    if moduleXGui then
-        local window = moduleXGui:FindFirstChildOfClass("Frame")
-        if window and window.Size == UDim2.new(0,600,0,400) then
-            window.Visible = not window.Visible
-        end
-    end
-end
-
-UserInputService.InputBegan:Connect(function(input, gp)
-    if gp then return end
-    if input.KeyCode == Enum.KeyCode.LeftControl then
-        _G.ModuleXHideToggle()
-    end
-end)
-
 return ModuleX
