@@ -41,7 +41,16 @@ ModuleX.__index = ModuleX
 
 function ModuleX.new()
     local self = setmetatable({}, ModuleX)
-
+    
+    UserInputService.InputBegan:Connect(function(input, gp)
+        if gp then return end
+        if input.KeyCode == Enum.KeyCode.LeftControl then
+            if UI.WindowFrame then
+                UI.WindowFrame.Visible = not UI.WindowFrame.Visible
+            end
+        end
+    end)
+    
     -- Default slider color and storage
     self.SliderColor = Color3.fromRGB(0,170,255)
     self.SliderFills = {}
