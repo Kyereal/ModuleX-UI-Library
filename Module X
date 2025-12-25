@@ -1,4 +1,4 @@
--- Module X SetUp Commands
+ -- Module X SetUp Commands
 -- SetLoadingText(LoadingText)
 -- SetCreditsText(CreditsName)
 -- CreateTab(TabName)
@@ -520,9 +520,10 @@ function ModuleX:SetSliderColor(color)
 end
 
 _G.ModuleXHideToggle = function()
-    if game.CoreGui:FindFirstChild("ModuleX") then
-        local window = game.CoreGui.ModuleX:FindFirstChild("Frame")
-        if window then
+    local moduleXGui = game.CoreGui:FindFirstChild("ModuleX")
+    if moduleXGui then
+        local window = moduleXGui:FindFirstChildOfClass("Frame")
+        if window and window.Size == UDim2.new(0,600,0,400) then
             window.Visible = not window.Visible
         end
     end
