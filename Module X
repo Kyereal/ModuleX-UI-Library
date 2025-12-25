@@ -519,10 +519,19 @@ function ModuleX:SetSliderColor(color)
     end
 end
 
+_G.ModuleXHideToggle = function()
+    if game.CoreGui:FindFirstChild("ModuleX") then
+        local window = game.CoreGui.ModuleX:FindFirstChild("Frame")
+        if window then
+            window.Visible = not window.Visible
+        end
+    end
+end
+
 UserInputService.InputBegan:Connect(function(input, gp)
     if gp then return end
     if input.KeyCode == Enum.KeyCode.LeftControl then
-        UI.WindowFrame.Visible = not UI.WindowFrame.Visible
+        _G.ModuleXHideToggle()
     end
 end)
 
